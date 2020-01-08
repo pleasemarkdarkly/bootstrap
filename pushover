@@ -1,0 +1,20 @@
+# https://transfersh.pleasemarkdarkly.com/fV7gN/pushover
+
+#!/bin/bash
+
+if [ $# -eq 0 ]; then
+	echo "Usage: ./pushover <message> [title]"
+	exit
+fi
+
+MESSAGE=$1
+TITLE=$2
+
+if [ $# -lt 2 ]; then
+	TITLE="`whoami`@${HOSTNAME}"
+fi
+
+APP_TOKEN="av9zat9atyq19y1pmz2mwfzz8tqn8u"
+USER_TOKEN="uc3p4sad6vd6x1omd35w21uhbhfxtn"
+
+wget https://api.pushover.net/1/messages.json --post-data="token=$APP_TOKEN&user=$USER_TOKEN&message=$MESSAGE&title=$TITLE" -qO- > /dev/null 2>&1 &
