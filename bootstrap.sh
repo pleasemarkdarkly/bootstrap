@@ -496,6 +496,7 @@ function main () {
   docker_install
   netatalk_install
   chtsh_install
+  nano_install
 
   chuck_norris
 

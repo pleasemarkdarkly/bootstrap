@@ -55,6 +55,7 @@ openssh-server
 p7zip-full
 p7zip-rar
 powerline
+python-pip
 python-setuptools
 rbenv
 rclone
@@ -71,6 +72,7 @@ sshfs
 sudo
 testdisk
 thefuck
+tree
 tig
 tldr
 tmux
