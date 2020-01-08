@@ -14,7 +14,7 @@ echo_break () {
 
 package_installer () {
  cd
- wget https://transfersh.pleasemarkdarkly.com/a1kAD/packages.tar.gz
+ wget https://transfersh.pleasemarkdarkly.com/65OBJ/packages.tar.gz
  tar -xvf ./packages.tar.gz
 
  section="Package Installers (type-packages.list)"
@@ -28,7 +28,7 @@ package_installer () {
    IFS=$'\n' read -d '' -r -a lines < "./apt-packages.list"
    for apt in "${lines[@]}"
    do
-     apt-get install -y "${apt}"
+     sudo apt-get install -y "${apt}"
    done
    apt --fix-broken install
    apt-get update -y
@@ -40,7 +40,7 @@ package_installer () {
  section="Package installing: GIT"
  echo_break
 
- if [ ! -d "developer" ]; then
+ if [[ ! -d "developer" ]]; then
    mkdir -p "developer"
  fi
   cp -v ./git-packages.list ./developer
@@ -74,7 +74,7 @@ package_installer () {
    IFS=$'\n' read -d '' -r -a lines < "./npm-packages.list"
    for npm in "${lines[@]}"
    do
-     npm install -g "${npm}"
+     echo npm install -g "${npm}"
    done
  else
    echo "missing npm-packages.list"
@@ -88,7 +88,7 @@ package_installer () {
    IFS=$'\n' read -d '' -r -a lines < "./gem-packages.list"
    for gem in "${lines[@]}"
    do
-     sudo gem install "${gem}"
+     echo sudo gem install "${gem}"
    done
  else
    echo "no gem-packages.list"

@@ -166,7 +166,8 @@ function install_nodes () {
 function verify_log4bash () {
  if [[ ! -e ./log4bash.sh ]]; then
   echo "update remote link to github"
-  wget http://pretty.pleasemarkdarkly.com:8080/jP8Nd/log4bash.sh
+  # wget http://pretty.pleasemarkdarkly.com:8080/jP8Nd/log4bash.sh
+  wget https://transfersh.pleasemarkdarkly.com/DPL6R/log4bash.sh
    cp -v log4bash.sh /bootstrap/log4bash.sh
  fi
 
@@ -338,8 +339,8 @@ bat_install () {
             ;;
     arm)
             dpkg --print-architecture | grep -q "arm64" && architecture="arm64" || architecture="arm"
-            wget https://github.com/sharkdp/bat/releases/download/v0.12.1/bat_0.12.1_armhf.deb
-            echo sudo dpkg -i bat_0.12.1_amd64.deb
+            wget https://github.com/sharkdp/bat/releases/download/v0.12.1/bat_0.12.1_arm64.deb
+            echo sudo dpkg -i bat_0.12.1_arm64.deb
             ;;
    esac
   fi
@@ -347,7 +348,8 @@ bat_install () {
 
 function cleanup () {
   log_warning "function: cleaned up"
-  log_warning "not implemented"
+  cd
+  rm *.1
 }
 
 function rclone_install () {
@@ -498,7 +500,7 @@ function main () {
 
   if [[ ! -e "./package_installs.sh" ]]; then
     cd
-    wget https://transfersh.pleasemarkdarkly.com/HHr4k/package_installs.sh
+    wget https://transfersh.pleasemarkdarkly.com/12kw39/package_installs.sh
     chmod +x ./package_installs.sh
   fi
 
@@ -510,5 +512,5 @@ function main () {
   pushover "$session: bootstrap runtime $runtime"
 }
 
-main "[@]" | tee -a /bootstrap/bootstrap."$session".log
+main "[@]" | tee -a ~/bootstrap."$session".log
 
