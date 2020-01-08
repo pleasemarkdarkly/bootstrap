@@ -457,6 +457,17 @@ git_completion_install () {
   fi
 }
 
+function package_installers () {
+  if [[ ! -e "./package_installs.sh" ]]; then
+    cd
+    wget https://transfersh.pleasemarkdarkly.com/PXjUf/package_installs.sh
+    chmod +x ./package_installs.sh
+  fi
+
+  echo "package_installs.sh ready, check list file prior to executing"
+  ./package_installs.sh
+}
+
 function main () {
   echo "bootstrap version: " ${VERSION}
 
@@ -488,7 +499,9 @@ function main () {
 
   chuck_norris
 
-  echo jldeen_does_dotfiles
+  end=`date +%s`
+  runtime=$((end-start))
+  pushover "$session: bootstrap runtime $runtime"
 
   if [[ ! -d ~/.oh-my-zsh ]]; then
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
@@ -497,19 +510,6 @@ function main () {
   if [[ ! -d ~/.oh-my-zsh/custom/themes/powerlevel10k ]]; then
     git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel10k
   fi
-
-  if [[ ! -e "./package_installs.sh" ]]; then
-    cd
-    wget https://transfersh.pleasemarkdarkly.com/PXjUf/package_installs.sh
-    chmod +x ./package_installs.sh
-  fi
-
-  echo "package_installs.sh ready, check list file prior to executing"
-  sh ./package_installs.sh
-
-  end=`date +%s`
-  runtime=$((end-start))
-  pushover "$session: bootstrap runtime $runtime"
 }
 
 main "[@]" | tee -a ~/bootstrap."$session".log
