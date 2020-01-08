@@ -6,7 +6,7 @@ cleanup() {
 
 docker_run() {
   docker-compose up --build --remove-orphan
-  docker run -it bootstrap_ubuntu
+  docker run -it bootstrap_ubuntu /root/bootstrap.sh
 }
 
 docker_refresh() {
