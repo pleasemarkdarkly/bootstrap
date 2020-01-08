@@ -1,7 +1,8 @@
 version: '3'
+
 services:
   ubuntu:
-    container_name: boot_20200108
+    container_name: bootstrapping
     build: .
     volumes:
       - ${PWD}:/root

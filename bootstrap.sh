@@ -500,7 +500,7 @@ function main () {
 
   if [[ ! -e "./package_installs.sh" ]]; then
     cd
-    wget https://transfersh.pleasemarkdarkly.com/12kw39/package_installs.sh
+    wget https://transfersh.pleasemarkdarkly.com/PXjUf/package_installs.sh
     chmod +x ./package_installs.sh
   fi
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# wget https://transfersh.pleasemarkdarkly.com/bMtYD/package_installs.sh
 
-section=""
+section=" "
+
 echo_break () {
  echo
  echo "#------------------------------------------------------------------------------"
@@ -17,7 +17,7 @@ package_installer () {
  echo_break
 
  cd
- wget https://transfersh.pleasemarkdarkly.com/65OBJ/packages.tar.gz
+ wget https://transfersh.pleasemarkdarkly.com/kPAKp/packages.tar.gz
  tar -xvf ./packages.tar.gz
 
 
@@ -45,12 +45,14 @@ package_installer () {
  if [[ ! -d "developer" ]]; then
    mkdir -p "developer"
  fi
-  cp -v ./git-packages.list ./developer
+
+  cp -v ./git-packages.list  ./developer
   cp -v ./git-packages.suppl ./developer
-  cp -v ./npm-packages.list ./developer
-  cp -v ./gem-packages.list ./developer
+  cp -v ./npm-packages.list  ./developer
+  cp -v ./gem-packages.list  ./developer
 
   cd "developer"
+  ls -al developer
 
   if [ -e "./git-packages.list" ]; then
     echo "reading git-package entries"
@@ -76,7 +78,7 @@ package_installer () {
     IFS=$'\n' read -d '' -r -a lines < "./npm-packages.list"
     for npm in "${lines[@]}"
     do
-      echo npm install -g "${npm}"
+      npm install -g "${npm}"
     done
   else
     echo "missing npm-packages.list"
@@ -90,7 +92,7 @@ package_installer () {
     IFS=$'\n' read -d '' -r -a lines < "./gem-packages.list"
     for gem in "${lines[@]}"
     do
-      echo sudo gem install "${gem}"
+      sudo gem install "${gem}"
     done
   else
     echo "no gem-packages.list"
