@@ -1,0 +1,25 @@
+
+git_suppl=(
+  hello_suppl
+)
+
+function hello_suppl() {
+  echo "hello_suppl: supplemental git routines are included as functions from .suppl file"
+  echo "define the function and add the function name to the git_suppl array"
+}
+
+function git_suppl() {
+  for func in "${git_suppl[@]}"
+  do
+    $func
+  done
+}
+
+function run_git_suppl() {
+  echo "function: git_package_suppl routine called"
+  git_suppl
+}
+
+
+
+
