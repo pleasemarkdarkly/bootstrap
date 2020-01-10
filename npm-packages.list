@@ -8,7 +8,6 @@ http-server
 inquirer
 less
 marked
-"mysqljs/mysql"
 prettier
 request
 speed-test

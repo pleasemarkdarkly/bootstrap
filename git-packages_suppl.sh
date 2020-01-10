@@ -1,4 +1,3 @@
-
 git_suppl=(
   hello_suppl
   trash-cli_install
@@ -18,7 +17,7 @@ function trash-cli_install() {
   sudo python setup.py install
   cd
 
-  cat << EOF > trash-cli_instructions
+  cat <<EOF >trash-cli_instructions
 $ trash-put           #trash files and directories.
 $ trash-empty         #empty the trashcan(s).
 $ trash-list          #list trashed files.
@@ -30,8 +29,7 @@ EOF
 }
 
 function git_suppl() {
-  for func in "${git_suppl[@]}"
-  do
+  for func in "${git_suppl[@]}"; do
     $func
   done
 }

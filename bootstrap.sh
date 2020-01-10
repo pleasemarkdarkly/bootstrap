@@ -19,6 +19,7 @@ apt_refresh () {
 }
 
 prereqs=(
+ avahi-daemon
  avahi-utils
  bash-completion
  catimg
@@ -65,7 +66,40 @@ prereqs=(
 
 snaps=(
  shfmt
-)
+}
+
+function install_gems () {
+  for g in "${gems[@]}"
+  do
+   sudo gem install $g
+  done
+}
+
+function install_snaps () {
+  for snap in "${snaps[@]}"
+  do
+   sudo snap install $snap
+  done
+  apt --fix-broken install
+  apt-get update -y; apt autoremove
+}
+
+function colorls_install () {
+  echo '[[ "$TERM" == "xterm" ]] && export TERM=xterm-256color' >> ~/.bashrc
+  echo 'export DISPLAY=:0' >> ~/.bashrc
+  echo "[ -t 1 ] && exec zsh" >> ~/.bashrc
+
+  curl -SLO http://scie.nti.st/dist/256colors2.pl
+  perl 256colors2.pl
+
+  apt install -y fortune-mod ddate toilet toilet-fonts lolcat cmatrix cowsay screenfetch
+  apt update -y
+
+  apt install -y ruby ruby-dev ruby-colorize
+  apt update -y
+
+  sudo apt install -y libncurses5-dev libtinfo-dev
+  apt update -y)
 
 gems=(
  gist
@@ -96,6 +130,8 @@ function install_prereqs () {
     case $( "${UNAME}" | tr '[:upper:]' '[:lower:]') in
       linux*)
         apt install -y $app
+        apt --fix-broken install
+        apt-get update -y; apt autoremove
         ;;
       darwin*)
         brew install $app & brew upgrade $app
@@ -104,8 +140,6 @@ function install_prereqs () {
         ;;
     esac
   done
-  apt --fix-broken install
-  apt-get update -y; apt autoremove
 }
 
 function install_gems () {
@@ -118,7 +152,7 @@ function install_gems () {
 function install_snaps () {
   for snap in "${snaps[@]}"
   do
-   sudo snap install $snap
+    sudo snap install $snap
   done
 }
 
@@ -477,7 +511,12 @@ function main () {
   os_detect
   apt_refresh
 
+  # todo: relocate
+  # post installation setup avahi zeroconf
+  sudo update-rc.d avahi-daemon defaults
+
   ruby --version
+
   rclone_install
   tmux_install
 

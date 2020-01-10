@@ -5,11 +5,13 @@ cleanup() {
 }
 
 docker_run() {
+  echo "docker-compose up --build --remote-orphan; docker run -it bootstrap_ubuntu;"
   docker-compose up --build --remove-orphan
-  docker run -it bootstrap_ubuntu /root/bootstrap.sh
+  docker run -it bootstrap_ubuntu
 }
 
 docker_refresh() {
+  echo "docker system prune; docker container prune"
   docker system prune
   docker container prune
 }
